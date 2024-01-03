@@ -1,18 +1,15 @@
+import HomePage from "./pages/HomePage";
+import ShopPage from "./pages/ShopPage";
+import ContactPage from "./pages/ContactPage";
+
 import "./App.css";
-import Footer from "./components/Layout/Footer/Footer";
-import Header from "./components/Layout/Header/Header";
-import Policy from "./components/Layout/Policy/Policy";
-import Sliders from "./components/Sliders/Sliders";
-import Categories from "./components/categories/categories";
 
 function App() {
   return (
     <>
-      <Header />
-      <Sliders />
-      <Categories />
-      <Policy />
-      <Footer />
+      {/* <HomePage /> */}
+      <ShopPage />
+      {/* <ContactPage /> */}
     </>
   );
 }
