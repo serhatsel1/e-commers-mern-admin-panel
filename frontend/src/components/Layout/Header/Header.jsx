@@ -1,6 +1,6 @@
-import "./Header.css"
+import "./Header.css";
 
-const Header = () => {
+const Header = ({ setIsSearchShow }) => {
   return (
     <header>
       <div className="global-notification">
@@ -189,7 +189,10 @@ const Header = () => {
                 <a href="account.html" className="header-account">
                   <i className="bi bi-person"></i>
                 </a>
-                <button className="search-button">
+                <button
+                  onClick={() => setIsSearchShow(true)}
+                  className="search-button"
+                >
                   <i className="bi bi-search"></i>
                 </button>
                 <a href="#">
