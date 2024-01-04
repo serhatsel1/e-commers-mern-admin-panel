@@ -1,15 +1,11 @@
 import Blogs from "../components/Blog/Blogs";
-import Footer from "../components/Layout/Footer/Footer";
-import Header from "../components/Layout/Header/Header";
 
 const BlogPage = () => {
   return (
     <>
-      <Header />
       <div className="blog-page">
         <Blogs />
       </div>
-      <Footer />
     </>
   );
 };
