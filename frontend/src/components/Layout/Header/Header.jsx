@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 import "./Header.css";
 
 const Header = ({ setIsSearchShow }) => {
@@ -214,3 +216,7 @@ const Header = ({ setIsSearchShow }) => {
 };
 
 export default Header;
+
+Header.propTypes = {
+  setIsSearchShow: PropTypes.func,
+};
