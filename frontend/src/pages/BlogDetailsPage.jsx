@@ -1,16 +1,15 @@
-import Contact from "../components/Contact/Contact";
+import BlogDetails from "../components/BlogDetails/BlogDetails";
 import Footer from "../components/Layout/Footer/Footer";
 import Header from "../components/Layout/Header/Header";
 
-
-const ContactPage = () => {
+const BlogDetailsPage = () => {
   return (
     <>
       <Header />
-      <Contact/>
+      <BlogDetails />
       <Footer />
     </>
   );
 };
 
-export default ContactPage;
+export default BlogDetailsPage;

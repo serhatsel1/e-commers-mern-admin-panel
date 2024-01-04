@@ -1,16 +1,16 @@
-import Contact from "../components/Contact/Contact";
+import Auth from "../components/Auth/Auth";
 import Footer from "../components/Layout/Footer/Footer";
 import Header from "../components/Layout/Header/Header";
 
 
-const ContactPage = () => {
+const AuthPage = () => {
   return (
     <>
       <Header />
-      <Contact/>
+      <Auth />
       <Footer />
     </>
   );
 };
 
-export default ContactPage;
+export default AuthPage;
