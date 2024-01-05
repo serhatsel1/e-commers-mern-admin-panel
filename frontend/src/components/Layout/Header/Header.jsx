@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
-
-import "./Header.css";
+import { Link } from "react-router-dom";
 import { CartContext } from "../../../context/CartProvider";
 import { useContext } from "react";
+import "./Header.css";
 
 const Header = ({ setIsSearchShow }) => {
   const { cartItems } = useContext(CartContext);
@@ -32,10 +32,10 @@ const Header = ({ setIsSearchShow }) => {
               <nav className="navigation">
                 <ul className="menu-list">
                   <li className="menu-list-item">
-                    <a href="index.html" className="menu-link active">
+                    <Link to={"/"} className="menu-link active">
                       Home
                       <i className="bi bi-chevron-down"></i>
-                    </a>
+                    </Link>
                     <div className="menu-dropdown-wrapper">
                       <ul className="menu-dropdown-content">
                         <li>
@@ -69,10 +69,10 @@ const Header = ({ setIsSearchShow }) => {
                     </div>
                   </li>
                   <li className="menu-list-item megamenu-wrapper">
-                    <a href="shop.html" className="menu-link">
+                    <Link to={"/shop"} className="menu-link">
                       Shop
                       <i className="bi bi-chevron-down"></i>
-                    </a>
+                    </Link>
                     <div className="menu-dropdown-wrapper">
                       <div className="menu-dropdown-megamenu">
                         <div className="megamenu-links">
@@ -176,14 +176,14 @@ const Header = ({ setIsSearchShow }) => {
                     </div>
                   </li>
                   <li className="menu-list-item">
-                    <a href="blog.html" className="menu-link">
+                    <Link to={"/blog"} className="menu-link">
                       Blog
-                    </a>
+                    </Link>
                   </li>
                   <li className="menu-list-item">
-                    <a href="contact.html" className="menu-link">
+                    <Link to={"/contact"} className="menu-link">
                       Contact
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </nav>
@@ -206,7 +206,9 @@ const Header = ({ setIsSearchShow }) => {
                 <div className="header-cart">
                   <a href="cart.html" className="header-cart-link">
                     <i className="bi bi-bag"></i>
-                    <span className="header-cart-count">{cartItems.length}</span>
+                    <span className="header-cart-count">
+                      {cartItems.length}
+                    </span>
                   </a>
                 </div>
               </div>
