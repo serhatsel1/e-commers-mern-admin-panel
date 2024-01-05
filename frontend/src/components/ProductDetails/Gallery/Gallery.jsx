@@ -66,7 +66,7 @@ const Gallery = () => {
   return (
     <div className="product-gallery">
       <div className="single-image-wrapper">
-        <img src={activeİmage} id="single-image" alt="" />
+        <img src={`/${activeİmage}`} id="single-image" alt="" />
       </div>
       <div className="product-thumb">
         <div className="glide__track" data-glide-el="track">
@@ -79,7 +79,7 @@ const Gallery = () => {
                   className="glide__slide glide__slide--active"
                 >
                   <img
-                    src={`${product}`}
+                    src={`/${product}`}
                     alt=""
                     className={`img-fluid ${
                       product === activeİmage && "active"
