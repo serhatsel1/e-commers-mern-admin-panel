@@ -1,12 +1,10 @@
 import PropTypes from "prop-types";
 import "./ProductItem.css";
-import { useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../../context/CartProvider";
 
-const PorductItem = ({ productItem, setCartItems }) => {
-  const addToCart = (product) => {
-    // setCartItems([...cartItems, product]); alternatif
-    setCartItems((prevItems) => [...prevItems, product]);
-  };
+const PorductItem = ({ productItem }) => {
+  const { addToCart } = useContext(CartContext);
 
   return (
     <div className="product-item glide__slide glide__slide--active">
@@ -37,6 +35,8 @@ const PorductItem = ({ productItem, setCartItems }) => {
             <i className="bi bi-star-half"></i>
           </li>
         </ul>
+
+        <hr />
         <div className="product-prices">
           <strong className="new-price">
             ${productItem.price.newPrice.toFixed(2)}
