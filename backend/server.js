@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import mainRoute from "./routes/index.js"
 
 dotenv.config();
 
@@ -17,9 +18,8 @@ const connect = async () => {
   }
 };
 
-app.get("/", (req, res) => {
-  res.send("Server is started");
-});
+
+app.use("/api",mainRoute)
 
 connect(); // MongoDB'ye bağlanmayı burada çağırın
 
