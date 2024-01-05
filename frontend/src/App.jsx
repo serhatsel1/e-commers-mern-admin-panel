@@ -9,18 +9,14 @@ import BlogDetailsPage from "./pages/BlogDetailsPage";
 
 import "./App.css";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
     <>
-      {/* <HomePage /> */}
-      {/* <ShopPage /> */}
-      {/* <ContactPage /> */}
-      {/* <AuthPage /> */}
-      <CartPage />
-      {/* <BlogPage /> */}
-      {/* <BlogDetailsPage /> */}
-      {/* <ProductDetailsPage /> */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
     </>
   );
 }
