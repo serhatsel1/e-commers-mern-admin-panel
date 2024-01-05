@@ -14,16 +14,27 @@ const CartProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-
-  const addToCart = (product) => {
-    // setCartItems([...cartItems, product]); alternatif
-    setCartItems((prevItems) => [...prevItems, product]);
+  const addToCart = (cartItem) => {
+    // setCartItems([...cartItems, cartItem]); alternatif
+    setCartItems((prevItems) => [
+      ...prevItems,
+      { ...cartItem, quantity: cartItem.quantity ? cartItem.quantity : 1 },
+    ]);
   };
+
+  const removeFromCart = (itemId) => {
+    const filteredCartItems = cartItems.filter((cartItem) => {
+      return cartItem.id !== itemId;
+    });
+    setCartItems(filteredCartItems);
+  };
+
   return (
     <CartContext.Provider
       value={{
         addToCart,
         cartItems,
+        removeFromCart,
       }}
     >
       {children}
