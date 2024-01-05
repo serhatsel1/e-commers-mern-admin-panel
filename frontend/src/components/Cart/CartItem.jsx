@@ -2,8 +2,10 @@ import PropTypes from "prop-types";
 import { useContext } from "react";
 import { CartContext } from "../../context/CartProvider";
 
+
 const CartItem = ({ cartItem }) => {
   const { removeFromCart } = useContext(CartContext);
+
   return (
     <tr className="cart-item">
       <td></td>
