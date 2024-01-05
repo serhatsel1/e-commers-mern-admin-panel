@@ -55,7 +55,7 @@
       "id": 4,
       "name": "Mercury Tee",
       "price": {
-          "oldPrice": 165.00,
+          "oldPrice": 185.00,
           "newPrice": 48.00
       },
       "discount": 40,
@@ -72,7 +72,7 @@
       "id": 5,
       "name": "La Bohème Rose Gold",
       "price": {
-          "oldPrice": 165.00,
+          "oldPrice": 190.00,
           "newPrice": 48.00
       },
       "discount": 40,

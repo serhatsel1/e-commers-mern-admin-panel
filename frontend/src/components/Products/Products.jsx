@@ -29,6 +29,8 @@ PrevBtn.propTypes = {
 };
 const Products = () => {
   const [products] = useState(ProductsData);
+  const [cartItems, setCartItems] = useState([]);
+  console.log(cartItems);
 
   const sliderSettings = {
     dots: false,
@@ -57,6 +59,7 @@ const Products = () => {
 
   return (
     <section className="products">
+     Cart count = {cartItems.length}
       <div className="container">
         <div className="section-title">
           <h2>Featured Products</h2>
@@ -66,7 +69,11 @@ const Products = () => {
           <div className="glide__track">
             <Slider {...sliderSettings}>
               {products.map((product) => (
-                <PorductItem key={product.id} product={product} />
+                <PorductItem
+                  key={product.id}
+                  productItem={product}
+                  setCartItems={setCartItems}
+                />
               ))}
             </Slider>
           </div>
