@@ -28,9 +28,9 @@ const Header = ({ setIsSearchShow }) => {
               <i className="bi bi-list" id="btn-menu"></i>
             </div>
             <div className="header-left">
-              <a href="index.html" className="logo">
+              <Link to={"/"} className="logo">
                 LOGO
-              </a>
+              </Link>
             </div>
             <div className="header-center" id="sidebar">
               <nav className="navigation">
@@ -206,25 +206,25 @@ const Header = ({ setIsSearchShow }) => {
             </div>
             <div className="header-right">
               <div className="header-right-links">
-                <a href="account.html" className="header-account">
+                <Link to={"/auth"} className="header-account">
                   <i className="bi bi-person"></i>
-                </a>
+                </Link>
                 <button
                   onClick={() => setIsSearchShow(true)}
                   className="search-button"
                 >
                   <i className="bi bi-search"></i>
                 </button>
-                <a href="#">
+                <a>
                   <i className="bi bi-heart"></i>
                 </a>
                 <div className="header-cart">
-                  <a href="cart.html" className="header-cart-link">
+                  <Link  to={"/cart"} className="header-cart-link">
                     <i className="bi bi-bag"></i>
                     <span className="header-cart-count">
                       {cartItems.length}
                     </span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
