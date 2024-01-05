@@ -14,7 +14,6 @@ const CartProvider = ({ children }) => {
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
-  console.log("CArtItems", cartItems);
 
   const addToCart = (product) => {
     // setCartItems([...cartItems, product]); alternatif
