@@ -1,11 +1,15 @@
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { CartContext } from "../../../context/CartProvider";
 import { useContext } from "react";
 import "./Header.css";
 
 const Header = ({ setIsSearchShow }) => {
   const { cartItems } = useContext(CartContext);
+
+  const location = useLocation();
+
+  // console.log("location-->", location);
   return (
     <header>
       <div className="global-notification">
@@ -32,7 +36,12 @@ const Header = ({ setIsSearchShow }) => {
               <nav className="navigation">
                 <ul className="menu-list">
                   <li className="menu-list-item">
-                    <Link to={"/"} className="menu-link active">
+                    <Link
+                      to={"/"}
+                      className={`menu-link ${
+                        location.pathname === "/" && "active"
+                      } `}
+                    >
                       Home
                       <i className="bi bi-chevron-down"></i>
                     </Link>
@@ -69,7 +78,9 @@ const Header = ({ setIsSearchShow }) => {
                     </div>
                   </li>
                   <li className="menu-list-item megamenu-wrapper">
-                    <Link to={"/shop"} className="menu-link">
+                    <Link to={"/shop"} className={`menu-link ${
+                        location.pathname === "/shop" && "active"
+                      } `}>
                       Shop
                       <i className="bi bi-chevron-down"></i>
                     </Link>
@@ -176,12 +187,16 @@ const Header = ({ setIsSearchShow }) => {
                     </div>
                   </li>
                   <li className="menu-list-item">
-                    <Link to={"/blog"} className="menu-link">
+                    <Link to={"/blog"}  className={`menu-link ${
+                        location.pathname === "/blog" && "active"
+                      } `}>
                       Blog
                     </Link>
                   </li>
                   <li className="menu-list-item">
-                    <Link to={"/contact"} className="menu-link">
+                    <Link to={"/contact"}  className={`menu-link ${
+                        location.pathname === "/contact" && "active"
+                      } `}>
                       Contact
                     </Link>
                   </li>
