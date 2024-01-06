@@ -51,4 +51,52 @@ const getSingleCategory = async (req, res) => {
   }
 };
 
-export { createCategory, allCategories, getSingleCategory };
+const updateCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+    const { name, img } = req.body;
+
+    const category = await Category.findByIdAndUpdate(
+      categoryId,
+      {
+        name,
+        img,
+      },
+      { new: true }
+    );
+    await category.save();
+    res.status(201).json({
+      category,
+    });
+  } catch (error) {
+    console.log("updateCategory-->", error);
+    res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+const deleteCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+
+    const category = await Category.findByIdAndDelete(categoryId);
+    await category.save();
+    res.status(201).json({
+      category,
+    });
+  } catch (error) {
+    console.log("deleteCategory-->", error);
+    res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+export {
+  createCategory,
+  allCategories,
+  getSingleCategory,
+  updateCategory,
+  deleteCategory,
+};
