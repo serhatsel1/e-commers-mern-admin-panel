@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import logger from "morgan";
 import mainRoute from "./routes/index.js";
 
 dotenv.config();
@@ -19,6 +20,7 @@ const connect = async () => {
 };
 
 app.use(express.json());
+app.use(logger("dev"));
 
 app.use("/api", mainRoute);
 
