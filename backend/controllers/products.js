@@ -51,4 +51,47 @@ const getSingleProduct = async (req, res) => {
   }
 };
 
-export { createProduct, allProducts, getSingleProduct };
+const updateProduct = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+    const productData = req.body;
+
+    const product = await Product.findByIdAndUpdate(productId, productData, {
+      new: true,
+    });
+    await product.save();
+    res.status(201).json({
+      product,
+    });
+  } catch (error) {
+    console.log("updateProduct-->", error);
+    res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+const deleteProduct = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+
+    const product = await Product.findByIdAndDelete(productId);
+    await product.save();
+    res.status(201).json({
+      message: "Ürün silindi",
+    });
+  } catch (error) {
+    console.log("deleteProduct-->", error);
+    res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+export {
+  createProduct,
+  allProducts,
+  getSingleProduct,
+  updateProduct,
+  deleteProduct,
+};
