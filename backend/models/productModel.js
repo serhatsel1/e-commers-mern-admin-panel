@@ -28,10 +28,12 @@ const productSchema = new Schema(
       type: String,
       required: true,
     },
-    img: {
-      type: String,
-      required: true,
-    },
+    img: [
+      {
+        type: String,
+        required: true,
+      },
+    ],
     price: {
       current: { type: Number, required: true },
       discount: { type: Number },
