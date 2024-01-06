@@ -11,7 +11,7 @@ const createUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     const existingEmail = await User.findOne({ email });
-
+    const defaultAvatar = generateRandomAvatar();
     if (existingEmail) {
       return res.status(400).json({
         message: "Email address is already registered !",
@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      avatar: generateRandomAvatar(),
+      avatar: defaultAvatar,
     });
 
     await newUser.save();
@@ -38,4 +38,29 @@ const createUser = async (req, res) => {
   }
 };
 
-export { createUser };
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({
+        message: "Geçersiz email veya şifre",
+      });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        message: "Hatalı şifre",
+      });
+    }
+    res.status(200).json({ user });
+  } catch (error) {
+    console.log("login-->", error);
+    res.status(500).json({ message: error });
+  }
+};
+
+export { createUser, login };
