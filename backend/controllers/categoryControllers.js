@@ -32,4 +32,23 @@ const allCategories = async (req, res) => {
   }
 };
 
-export { createCategory, allCategories };
+const getSingleCategory = async (req, res) => {
+  try {
+    const categoryId = req.params.categoryId;
+
+    const singleCategory = await Category.findById(categoryId);
+
+    // console.log("singleCategory", singleCategory);
+
+    res.status(200).json({
+      singleCategory,
+    });
+  } catch (error) {
+    console.log("getSingleCategory-->", error);
+    res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+export { createCategory, allCategories, getSingleCategory };
