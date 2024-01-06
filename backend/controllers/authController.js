@@ -24,7 +24,7 @@ const createUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      avatar: generateRandomAvatar,
+      avatar: generateRandomAvatar(),
     });
 
     await newUser.save();
