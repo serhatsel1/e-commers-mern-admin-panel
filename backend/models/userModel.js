@@ -20,10 +20,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
       default: "user",
-      enum: ["user, admin"],
-      avatar: {
-        type: String,
-      },
+      enum: ["user", "admin"],
+    },
+    avatar: {
+      type: String,
     },
   },
   { timestamps: true }
