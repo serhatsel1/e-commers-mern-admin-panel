@@ -1,5 +1,6 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 const generateRandomAvatar = () => {
   const randomAvatar = Math.floor(Math.random() * 71);
@@ -27,10 +28,15 @@ const createUser = async (req, res) => {
       avatar: defaultAvatar,
     });
 
+    const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_TOKEN, {
+      expiresIn: "5d",
+    });
+
     await newUser.save();
 
     res.status(200).json({
       newUser,
+      token,
     });
   } catch (error) {
     console.log("createUser-->", error);
