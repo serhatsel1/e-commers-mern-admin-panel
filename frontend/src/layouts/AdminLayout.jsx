@@ -149,7 +149,16 @@ const AdminLayout = ({ children }) => {
             <h2>Admin Paneli</h2>
           </div>
         </Header>
-        <Content>{children}</Content>
+        <Content
+          className="site-layout-background"
+          style={{
+            padding: "24px 50px",
+            minHeight: 360,
+          }}
+        >
+          asdasd
+          {children}
+        </Content>
       </Layout>
     </Layout>
   );
