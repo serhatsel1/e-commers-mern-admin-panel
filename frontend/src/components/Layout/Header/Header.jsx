@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CartContext } from "../../../context/CartProvider";
 import { useContext } from "react";
 import "./Header.css";
+import { message } from "antd";
 
 const Header = ({ setIsSearchShow }) => {
+  const user = localStorage.getItem("user");
+  const navigate = useNavigate();
   const { cartItems } = useContext(CartContext);
 
   const location = useLocation();
@@ -78,9 +81,12 @@ const Header = ({ setIsSearchShow }) => {
                     </div>
                   </li>
                   <li className="menu-list-item megamenu-wrapper">
-                    <Link to={"/shop"} className={`menu-link ${
+                    <Link
+                      to={"/shop"}
+                      className={`menu-link ${
                         location.pathname === "/shop" && "active"
-                      } `}>
+                      } `}
+                    >
                       Shop
                       <i className="bi bi-chevron-down"></i>
                     </Link>
@@ -187,16 +193,22 @@ const Header = ({ setIsSearchShow }) => {
                     </div>
                   </li>
                   <li className="menu-list-item">
-                    <Link to={"/blog"}  className={`menu-link ${
+                    <Link
+                      to={"/blog"}
+                      className={`menu-link ${
                         location.pathname === "/blog" && "active"
-                      } `}>
+                      } `}
+                    >
                       Blog
                     </Link>
                   </li>
                   <li className="menu-list-item">
-                    <Link to={"/contact"}  className={`menu-link ${
+                    <Link
+                      to={"/contact"}
+                      className={`menu-link ${
                         location.pathname === "/contact" && "active"
-                      } `}>
+                      } `}
+                    >
                       Contact
                     </Link>
                   </li>
@@ -219,13 +231,29 @@ const Header = ({ setIsSearchShow }) => {
                   <i className="bi bi-heart"></i>
                 </a>
                 <div className="header-cart">
-                  <Link  to={"/cart"} className="header-cart-link">
+                  <Link to={"/cart"} className="header-cart-link">
                     <i className="bi bi-bag"></i>
                     <span className="header-cart-count">
                       {cartItems.length}
                     </span>
                   </Link>
                 </div>
+                {user && (
+                  <button
+                    onClick={() => {
+                      if (confirm("Çıkış yapmak istedğinizden eminmisiniz ?")) {
+                        {
+                          localStorage.removeItem("user");
+                        }
+                        message.success("Başarılı bir şekilde çıkış yapıldı");
+                        navigate("/");
+                      }
+                    }}
+                    className="search-button"
+                  >
+                    <i className="bi bi-box-arrow-right"></i>
+                  </button>
+                )}
               </div>
             </div>
           </div>
