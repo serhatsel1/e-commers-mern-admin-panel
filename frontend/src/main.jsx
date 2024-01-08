@@ -8,7 +8,7 @@ import "./index.css";
 import CartProvider from "./context/CartProvider.jsx";
 
 
-console.log(location);
+// console.log(location);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>

@@ -31,7 +31,10 @@ const createUser = async (req, res) => {
     const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET_TOKEN, {
       expiresIn: "5d",
     });
-
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 5 * 24 * 60 * 60 * 1000,
+    });
     await newUser.save();
 
     res.status(200).json({

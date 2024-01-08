@@ -1,8 +1,11 @@
 import { useState } from "react";
+import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
   });
@@ -11,17 +14,46 @@ const Register = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-  console.log(formData);
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    console.log("Kullanıcı oluşturuldu");
+    try {
+      const response = await fetch(`http://localhost:8080/api//auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        const responseData = await response.json();
+        const { paswword, ...rest } = responseData;
+        localStorage.setItem("token", responseData?.token);
+        localStorage.setItem("user", JSON.stringify(responseData?.rest));
+
+        message.success("Kayıt  işlemi Başarılı ");
+
+        navigate("/");
+      } else {
+        message.error("Kayıt Başarısız");
+      }
+      console.log(response);
+    } catch (error) {
+      console.log("handleRegister-->", error);
+    }
+  };
   return (
     <div className="account-column">
       <h2>Register</h2>
-      <form>
+      <form onSubmit={handleRegister}>
         <div>
           <label>
             <span>
               Username <span className="required">*</span>
             </span>
-            <input type="text" onChange={handleInputChange} name="username" />
+            <input type="text" onChange={handleInputChange} name="name" />
           </label>
         </div>
         <div>
