@@ -11,7 +11,7 @@ const CategoryPage = () => {
   const fetchCategories = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await fetch(`${apiUrl}/api/category`);
+      const res = await fetch(`${apiUrl}/api/categories`);
 
       if (res.ok) {
         const resData = await res.json();
@@ -29,7 +29,7 @@ const CategoryPage = () => {
   const deleteCategory = async (categoryId) => {
     console.log("category", categoryId);
     try {
-      const res = await fetch(`${apiUrl}/api/category/${categoryId}`, {
+      const res = await fetch(`${apiUrl}/api/categories/${categoryId}`, {
         method: "DELETE",
       });
 
@@ -43,7 +43,7 @@ const CategoryPage = () => {
     }
   };
   const updateCategory = async (categoryId) => {
-    const res = await fetch(`${apiUrl}/api/category/${categoryId}`, {
+    const res = await fetch(`${apiUrl}/api/categories/${categoryId}`, {
       method: "PUT",
       // body:
     });

@@ -64,7 +64,7 @@ const updateCategory = async (req, res) => {
       },
       { new: true }
     );
-    await category.save();
+    // await category.save();
     res.status(201).json({
       category,
     });

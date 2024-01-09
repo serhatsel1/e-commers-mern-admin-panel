@@ -6,7 +6,7 @@ import couponRoute from "./couponRoute.js";
 import userRoute from "./userRoute.js";
 const router = express.Router();
 
-router.use("/category", categoryRoute);
+router.use("/categories", categoryRoute);
 router.use("/products", productsRoute);
 router.use("/auth", authRoute);
 router.use("/coupon", couponRoute);
