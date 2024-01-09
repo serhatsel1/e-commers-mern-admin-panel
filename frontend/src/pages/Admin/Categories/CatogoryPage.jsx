@@ -1,10 +1,12 @@
 import { Button, Popconfirm, Space, Table, message } from "antd";
 import { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const CategoryPage = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const fetchCategories = useCallback(async () => {
     setLoading(true);
@@ -68,7 +70,14 @@ const CategoryPage = () => {
       key: "actions",
       render: (_, record) => (
         <Space size={"middle"}>
-          <Button type="primary">Düzenle</Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              navigate(`/admin/categories/update/${record?._id}`);
+            }}
+          >
+            Düzenle
+          </Button>
           <Popconfirm
             title="Kategoriyi sil"
             description="Kategoriyi silmek istediğinizden emin misiniz?"
