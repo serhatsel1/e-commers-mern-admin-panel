@@ -62,7 +62,7 @@ const Gallery = () => {
   // const slideLeftHandle = () => {
   //   setShow((prevState) => (prevState - 1 + 3) % 3);
   // };
-  console.log(productsData);
+  // console.log(productsData);
   return (
     <div className="product-gallery">
       <div className="single-image-wrapper">

@@ -40,7 +40,7 @@ const Register = () => {
       } else {
         message.error("Kayıt Başarısız");
       }
-      console.log(response);
+      // console.log(response);
     } catch (error) {
       console.log("handleRegister-->", error);
     }

@@ -5,7 +5,7 @@ const CartTotals = () => {
   const { cartItems } = useContext(CartContext);
   const [checkedCargo, setCheckedCargo] = useState(false);
 
-  console.log("total", cartItems);
+  // console.log("total", cartItems);
 
   const cartItemTotals = cartItems.map((item) => {
     const itemTotal = item.price.newPrice * item.quantity;

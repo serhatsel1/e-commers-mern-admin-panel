@@ -14,7 +14,7 @@ const Login = () => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
 
-    console.log(name, value);
+    // console.log(name, value);
   };
 
   const handleLogin = async (e) => {

@@ -12,7 +12,7 @@ const PorductItem = ({ productItem }) => {
     (cartItem) => cartItem.id === productItem.id
   );
 
-  console.log(cartItems);
+  // console.log(cartItems);
 
   return (
     <div className="product-item glide__slide glide__slide--active">
