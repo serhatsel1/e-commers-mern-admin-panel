@@ -1,4 +1,4 @@
-import { Button, Layout, Menu } from "antd";
+import { Layout, Menu } from "antd";
 import Sider from "antd/es/layout/Sider";
 import { Content, Header } from "antd/es/layout/layout";
 import {
@@ -13,8 +13,15 @@ import {
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
+const getUserRole = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  return user ? user.role : null;
+};
+
 const AdminLayout = ({ children }) => {
   const navigate = useNavigate();
+  const userRole = getUserRole();
   const menuItems = [
     {
       key: "1",
@@ -122,46 +129,51 @@ const AdminLayout = ({ children }) => {
       },
     },
   ];
-  return (
-    <Layout
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      <Sider theme="dark" width={200}>
-        <Menu
-          mode="vertical"
-          style={{
-            height: "100%",
-          }}
-          items={menuItems}
-        />
-      </Sider>
-      <Layout>
-        <Header>
-          <div
+
+  if (userRole === "admin") {
+    return (
+      <Layout
+        style={{
+          minHeight: "100vh",
+        }}
+      >
+        <Sider theme="dark" width={200}>
+          <Menu
+            mode="vertical"
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              color: "white",
+              height: "100%",
+            }}
+            items={menuItems}
+          />
+        </Sider>
+        <Layout>
+          <Header>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                color: "white",
+              }}
+            >
+              <h2>Admin Paneli</h2>
+            </div>
+          </Header>
+          <Content
+            className="site-layout-background"
+            style={{
+              padding: "24px 50px",
+              minHeight: 360,
             }}
           >
-            <h2>Admin Paneli</h2>
-          </div>
-        </Header>
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: "24px 50px",
-            minHeight: 360,
-          }}
-        >
-          asdasd
-          {children}
-        </Content>
+            asdasd
+            {children}
+          </Content>
+        </Layout>
       </Layout>
-    </Layout>
-  );
+    );
+  } else {
+    return (window.location.href = "/");
+  }
 };
 
 AdminLayout.propTypes = {
