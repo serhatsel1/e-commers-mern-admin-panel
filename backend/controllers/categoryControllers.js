@@ -81,7 +81,7 @@ const deleteCategory = async (req, res) => {
     const categoryId = req.params.categoryId;
 
     const category = await Category.findByIdAndDelete(categoryId);
-    await category.save();
+    // await category.save();
     res.status(201).json({
       category,
     });
