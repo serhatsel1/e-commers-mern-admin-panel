@@ -15,4 +15,21 @@ const allUsers = async (req, res) => {
   }
 };
 
-export { allUsers };
+const deleteUser = async (req, res) => {
+  try {
+    const email = req.params.email;
+
+    const user = await User.findOneAndDelete({ email });
+    // await user.save();
+    res.status(201).json({
+      user,
+    });
+  } catch (error) {
+    console.log("deleteUser-->", error);
+    res.status(500).json({
+      message: error,
+    });
+  }
+};
+
+export { allUsers,deleteUser };

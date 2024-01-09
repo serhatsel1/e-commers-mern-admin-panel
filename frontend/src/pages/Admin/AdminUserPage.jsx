@@ -1,7 +1,48 @@
-import { Table, message } from "antd";
+import { Button, Popconfirm, Table, message } from "antd";
 import { useCallback, useEffect, useState } from "react";
 
 const AdminUserPage = () => {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  const [dataSource, setDataSource] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchUsers = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch(`${apiUrl}/api/users`);
+
+      if (res.ok) {
+        const resData = await res.json();
+        setDataSource(resData);
+      } else {
+        message.error("Kullanıcılar getirilemedi");
+      }
+    } catch (error) {
+      console.error("fetchUsers -->", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [apiUrl]);
+
+  const deleteUser = async (userEmail) => {
+    console.log("userEmail", userEmail);
+    try {
+      const res = await fetch(`${apiUrl}/api/users/${userEmail}`, {
+        method: "DELETE",
+      });
+
+      if (res.ok) {
+        fetchUsers();
+      } else {
+        message.error("Kullanıcı silinemedi");
+      }
+    } catch (error) {
+      console.error("deleteUser -->", error);
+    }
+  };
+
+  console.log(dataSource);
+
   const columns = [
     {
       title: "Avatar",
@@ -33,30 +74,23 @@ const AdminUserPage = () => {
       dataIndex: "role",
       key: "role",
     },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      key: "actions",
+      render: (_, record) => (
+        <Popconfirm
+          title="Kullanıcıyı sil"
+          description="Kullanıcıyı silmek istediğinizden emin misiniz?"
+          okText="Yes"
+          cancelText="No"
+          onConfirm={() => deleteUser(record.email)}
+        >
+          <Button danger>Delete</Button>
+        </Popconfirm>
+      ),
+    },
   ];
-  const apiUrl = import.meta.env.VITE_API_BASE_URL;
-  const [dataSource, setDataSource] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const fetchUsers = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await fetch(`${apiUrl}/api/users`);
-
-      if (res.ok) {
-        const resData = await res.json();
-        setDataSource(resData);
-      } else {
-        message.error("Kullanıcılar getirilemedi");
-      }
-    } catch (error) {
-      console.log("fetchUsers -->", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [apiUrl]);
-
-  console.log(dataSource);
-  // console.log(columns);
 
   useEffect(() => {
     fetchUsers();
