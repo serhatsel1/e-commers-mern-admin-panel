@@ -8,25 +8,61 @@ import {
   Spin,
   message,
 } from "antd";
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "antd/es/form/Form";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-const apiUrl = import.meta.env.VITE_API_BASE_URL;
 const CreateProductPage = () => {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const [form] = useForm();
   const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`${apiUrl}/api/categories`);
+
+        if (res.ok) {
+          const resData = await res.json();
+          setCategories(resData.categories);
+        } else {
+          message.error("Kullanıcılar getirilemedi");
+        }
+      } catch (error) {
+        console.error("fetchUsers -->", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, [apiUrl]);
+  // console.log(categories);
+
   const onFinish = async (values) => {
+    const imgLinks = values.img.split("\n").map((link) => link.trim());
+    const colors = values.colors.split("\n").map((link) => link.trim());
+    const sizes = values.sizes.split("\n").map((link) => link.trim());
+
     try {
       // setLoading(true);
       const res = await fetch(`${apiUrl}/api/products`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          ...values,
+          price: {
+            current: values.current,
+            discount: values.discount,
+          },
+          img: imgLinks,
+          sizes,
+          colors,
+        }),
       });
       if (res.ok) {
         message.success("Ürün başarıyla oluşturuldu");
@@ -52,9 +88,29 @@ const CreateProductPage = () => {
         >
           <Input />
         </Form.Item>
+
+        <Form.Item
+          label="Ürün Kategori"
+          name="category"
+          rules={[
+            {
+              required: true,
+              message: "Lütfen en az 1 ürün kategorisi girin",
+            },
+          ]}
+        >
+          <Select>
+            {categories.map((category) => (
+              <Select.Option value={category._id} key={category._id}>
+                {category.name}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
         <Form.Item
           label="Ürün Fiyatı"
-          name="price"
+          name="current"
           rules={[
             {
               required: true,
@@ -62,7 +118,7 @@ const CreateProductPage = () => {
             },
           ]}
         >
-          ₺<InputNumber />
+          <InputNumber />
         </Form.Item>
 
         <Form.Item
@@ -75,7 +131,7 @@ const CreateProductPage = () => {
             },
           ]}
         >
-          %<InputNumber />
+          <InputNumber />
         </Form.Item>
         <Form.Item
           label="İndirim Açıklaması"
@@ -87,7 +143,7 @@ const CreateProductPage = () => {
             },
           ]}
         >
-          <ReactQuill theme="snow" style={{background:"white"}} />
+          <ReactQuill theme="snow" style={{ background: "white" }} />
         </Form.Item>
 
         <Form.Item
@@ -136,23 +192,6 @@ const CreateProductPage = () => {
             placeholder="Her bir ürün beden ölçüsünü yeni satıra yazın"
             autoSize={{ minRows: 4 }}
           />
-        </Form.Item>
-
-        <Form.Item
-          label="Ürün Kategori"
-          name="category"
-          rules={[
-            {
-              required: true,
-              message: "Lütfen en az 1 ürün kategorisi girin",
-            },
-          ]}
-        >
-          <Select>
-            <Select.Option value="Akıllı Telefon" key={"Akıllı Telefon"}>
-              Akıllı Telefon
-            </Select.Option>
-          </Select>
         </Form.Item>
 
         <Space size={"large"}>
