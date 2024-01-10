@@ -1,11 +1,12 @@
 import { Button, Form, Input, Spin, message } from "antd";
 import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
 const UpdateCategoryPage = () => {
   const params = useParams();
   const categoryId = params.id;
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const onFinish = async (values) => {
@@ -19,6 +20,7 @@ const UpdateCategoryPage = () => {
       console.log("values-->", values);
       if (res.ok) {
         message.success("Başarıyla güncellendi");
+        navigate(-1);
       } else {
         message.error("Güncelleme başarısız");
       }
