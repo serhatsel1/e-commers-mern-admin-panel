@@ -8,9 +8,11 @@ import {
   Spin,
   message,
 } from "antd";
-import { useForm } from "antd/es/form/Form";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "antd/es/form/Form";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 const CreateProductPage = () => {
@@ -74,6 +76,18 @@ const CreateProductPage = () => {
           ]}
         >
           %<InputNumber />
+        </Form.Item>
+        <Form.Item
+          label="İndirim Açıklaması"
+          name="description"
+          rules={[
+            {
+              required: true,
+              message: "Lütfen ürün açıklaması giriniz",
+            },
+          ]}
+        >
+          <ReactQuill theme="snow" style={{background:"white"}} />
         </Form.Item>
 
         <Form.Item
