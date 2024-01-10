@@ -7,10 +7,11 @@ import CartPage from "./pages/CartPage";
 import AuthPage from "./pages/AuthPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import BlogDetailsPage from "./pages/BlogDetailsPage";
-import "./App.css";
 import UserPage from "./pages/Admin/UserPage";
 import CategoryPage from "./pages/Admin/Categories/CatogoryPage";
 import UpdateCategoryPage from "./pages/Admin/Categories/UpdateCategoryPage";
+import CreateCategoryPage from "./pages/Admin/Categories/CreateCategoryPage";
+import "./App.css";
 function App() {
   return (
     <>
@@ -27,6 +28,7 @@ function App() {
           <Route path="users" element={<UserPage />} />
           <Route path="categories" element={<CategoryPage />} />
           <Route path="categories/update/:id" element={<UpdateCategoryPage />} />
+          <Route path="categories/create" element={<CreateCategoryPage/>}/>
         </Route>
       </Routes>
     </>
