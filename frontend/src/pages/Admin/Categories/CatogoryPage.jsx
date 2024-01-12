@@ -42,12 +42,7 @@ const CategoryPage = () => {
       console.error("deleteCategory -->", error);
     }
   };
-  // const updateCategory = async (categoryId) => {
-  //   const res = await fetch(`${apiUrl}/api/categories/${categoryId}`, {
-  //     method: "PUT",
-  //   });
-  // };
-  // console.log(dataSource);
+
 
   const columns = [
     {
