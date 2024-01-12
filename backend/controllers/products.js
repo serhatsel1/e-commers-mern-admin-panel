@@ -19,7 +19,10 @@ const createProduct = async (req, res) => {
 
 const allProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find().populate({
+      path: "category",
+      select: "name",
+    });
 
     res.status(200).json({
       products,
@@ -76,7 +79,7 @@ const deleteProduct = async (req, res) => {
     const productId = req.params.productId;
 
     const product = await Product.findByIdAndDelete(productId);
-    await product.save();
+    // await product.save();
     res.status(201).json({
       message: "Ürün silindi",
     });

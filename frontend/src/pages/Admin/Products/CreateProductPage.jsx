@@ -49,7 +49,7 @@ const CreateProductPage = () => {
     const sizes = values.sizes.split("\n").map((link) => link.trim());
 
     try {
-      // setLoading(true);
+      setLoading(true);
       const res = await fetch(`${apiUrl}/api/products`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -68,7 +68,7 @@ const CreateProductPage = () => {
         message.success("Ürün başarıyla oluşturuldu");
       }
     } catch (error) {
-      console.log(error);
+      console.log("CreateProductPage-->", error);
     } finally {
       setLoading(false);
     }
