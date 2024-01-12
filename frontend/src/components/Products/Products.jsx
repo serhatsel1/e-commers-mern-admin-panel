@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PorductItem from "./PorductItem";
 import ProductsData from "../../data.json";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 import "./Products.css";
+import { message } from "antd";
 
 function NextBtn({ onClick }) {
   return (
@@ -28,10 +29,26 @@ PrevBtn.propTypes = {
   onClick: PropTypes.func,
 };
 const Products = () => {
-  const [products] = useState(ProductsData);
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+  const [products, setProducts] = useState([]);
 
-
-
+  useEffect(() => {
+    const fetchAllProducts = async () => {
+      try {
+        const res = await fetch(`${apiUrl}/api/products`);
+        if (res.ok) {
+          const producdata = await res.json();
+          setProducts(producdata);
+        } else {
+          return message.error("Ürünler getirlemedi !");
+        }
+      } catch (error) {
+        console.log("FetchAllProducts", fetchAllProducts);
+      }
+    };
+    fetchAllProducts();
+  }, [apiUrl]);
+  console.log(products);
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -67,8 +84,8 @@ const Products = () => {
         <div className="product-wrapper product-carousel">
           <div className="glide__track">
             <Slider {...sliderSettings}>
-              {products.map((product) => (
-                <PorductItem key={product.id} productItem={product} />
+              {products?.products?.map((product) => (
+                <PorductItem key={product._id} productItem={product} />
               ))}
             </Slider>
           </div>

@@ -15,7 +15,7 @@ const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const addToCart = (cartItem) => {
-    // setCartItems([...cartItems, cartItem]); alternatif
+    console.log("Adding to cart:", cartItem);
     setCartItems((prevItems) => [
       ...prevItems,
       { ...cartItem, quantity: cartItem.quantity ? cartItem.quantity : 1 },
@@ -24,7 +24,7 @@ const CartProvider = ({ children }) => {
 
   const removeFromCart = (itemId) => {
     const filteredCartItems = cartItems.filter((cartItem) => {
-      return cartItem.id !== itemId;
+      return cartItem._id !== itemId;
     });
     setCartItems(filteredCartItems);
   };

@@ -9,17 +9,20 @@ const PorductItem = ({ productItem }) => {
   const navigate = useNavigate();
 
   const filteredCart = cartItems.find(
-    (cartItem) => cartItem.id === productItem.id
+    (cartItem) => cartItem._id === productItem._id
   );
+  const currentPrice = productItem.price.current;
+  const discountPercent = productItem.price.discount;
 
+  const newPrice = ((100 - discountPercent) / 100) * currentPrice;
   // console.log(cartItems);
 
   return (
     <div className="product-item glide__slide glide__slide--active">
       <div className="product-image">
         <a href="#">
-          <img src={productItem.img.singleImage} alt="" className="img1" />
-          <img src={productItem.img.thumbs[1]} alt="" className="img2" />
+          <img src={productItem.img[0]} alt="" className="img1" />
+          <img src={productItem.img[1]} alt="" className="img2" />
         </a>
       </div>
       <div className="product-info">
@@ -47,16 +50,14 @@ const PorductItem = ({ productItem }) => {
         <hr />
         <div className="product-prices">
           <strong className="new-price">
-            ${productItem.price.newPrice.toFixed(2)}
+            ${productItem.price.current.toFixed(2)}
           </strong>
-          <span className="old-price">
-            ${productItem.price.oldPrice.toFixed(2)}
-          </span>
+          <span className="old-price">${newPrice.toFixed(2)}</span>
         </div>
-        <span className="product-discount">-{productItem.discount}%</span>
+        <span className="product-discount">-{productItem.price.discount}%</span>
         <div className="product-links">
           <button
-            onClick={() => addToCart(productItem)}
+            onClick={() => addToCart({ ...productItem, price: newPrice })}
             disabled={filteredCart}
           >
             <i className="bi bi-basket-fill"></i>
@@ -65,7 +66,7 @@ const PorductItem = ({ productItem }) => {
             <i className="bi bi-heart-fill"></i>
           </button>
           <a>
-            <Link to={`product/${productItem.id}`} className="product-link">
+            <Link to={`product/${productItem._id}`} className="product-link">
               <i className="bi bi-eye-fill"></i>
             </Link>
           </a>
