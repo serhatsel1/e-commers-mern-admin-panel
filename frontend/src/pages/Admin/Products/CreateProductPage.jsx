@@ -21,7 +21,6 @@ const CreateProductPage = () => {
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
-
   // console.log(categories);
 
   const onFinish = async (values) => {
@@ -53,7 +52,29 @@ const CreateProductPage = () => {
     } finally {
       setLoading(false);
     }
+    console.log("imgLinks", imgLinks);
+    setCategories(imgLinks);
   };
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`${apiUrl}/api/categories`);
+
+        if (res.ok) {
+          const resData = await res.json();
+          setCategories(resData.categories);
+        } else {
+          message.error("Ürün getirilemedi");
+        }
+      } catch (error) {
+        console.error("fetchUsers -->", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, [apiUrl]);
   return (
     <Spin spinning={loading}>
       <Form form={form} name="basic" layout="vertical" onFinish={onFinish}>

@@ -1,9 +1,12 @@
-import "./Info.css"
+import PropTypes from "prop-types";
 
-const Info = () => {
+import "./Info.css";
+
+const Info = ({ productData }) => {
+  console.log("asdasd", productData);
   return (
     <div className="product-info">
-      <h1 className="product-title">Ridley High Waist</h1>
+      <h1 className="product-title">{productData?.singleProduct?.name}</h1>
       <div className="product-review">
         <ul className="product-star">
           <li>
@@ -25,7 +28,7 @@ const Info = () => {
         <span>2 reviews</span>
       </div>
       <div className="product-price">
-        <s className="old-price">$165</s>
+        <s className="old-price">{productData?.singleProduct?.price.current}</s>
         <strong className="new-price">$100</strong>
       </div>
       <p className="product-description">
@@ -116,6 +119,10 @@ const Info = () => {
       </div>
     </div>
   );
+};
+
+Info.propTypes = {
+  productData: PropTypes.object,
 };
 
 export default Info;

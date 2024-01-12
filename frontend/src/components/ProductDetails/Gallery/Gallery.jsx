@@ -1,5 +1,4 @@
 import { useState } from "react";
-import productsData from "../../../data.json";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 import "./Gallery.css";
@@ -41,11 +40,12 @@ PrevBtn.propTypes = {
   onClick: PropTypes.func,
 };
 
-const Gallery = () => {
+const Gallery = ({ productData }) => {
   const [activeİmage, setActiveİmage] = useState(
-    productsData[0].img.singleImage
+    productData?.singleProduct?.img[0]
   );
-  const [show, setShow] = useState(0);
+  // const [show, setShow] = useState(0);
+  console.log("gallery", productData);
 
   const sliderSettings = {
     dots: false,
@@ -55,31 +55,33 @@ const Gallery = () => {
     nextArrow: <NextBtn />,
     prevArrow: <PrevBtn />,
   };
-  // const slideRightHandle = () => {
-  //   setShow((prevState) => (prevState + 1) % 3);
-  // };
 
-  // const slideLeftHandle = () => {
-  //   setShow((prevState) => (prevState - 1 + 3) % 3);
-  // };
-  // console.log(productsData);
+  // const imgLinks = productData?.singleProduct?.img?.split("\n").map((link) => link.trim());
+  console.log(activeİmage);
+  // console.log(imgLinks)
   return (
     <div className="product-gallery">
       <div className="single-image-wrapper">
-        <img src={`/${activeİmage}`} id="single-image" alt="" />
+        <img
+          style={{ minHeight: "570px" }}
+          src={activeİmage}
+          id="single-image"
+          alt=""
+        />
       </div>
       <div className="product-thumb">
         <div className="glide__track" data-glide-el="track">
           <ol className="gallery-thumbs glide__slides">
             <Slider {...sliderSettings}>
-              {productsData[0].img.thumbs.map((product, i) => (
+              {productData?.singleProduct?.img?.map((product, i) => (
                 <li
                   key={i}
                   onClick={() => setActiveİmage(product)}
                   className="glide__slide glide__slide--active"
                 >
                   <img
-                    src={`/${product}`}
+                    style={{ height: "160px" }}
+                    src={`${product}`}
                     alt=""
                     className={`img-fluid ${
                       product === activeİmage && "active"
@@ -94,6 +96,10 @@ const Gallery = () => {
       </div>
     </div>
   );
+};
+
+Gallery.propTypes = {
+  productData: PropTypes.object,
 };
 
 export default Gallery;
