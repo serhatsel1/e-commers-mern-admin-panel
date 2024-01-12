@@ -8,52 +8,98 @@ import {
   Spin,
   message,
 } from "antd";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useForm } from "antd/es/form/Form";
+import { useCallback, useEffect, useState } from "react";
 import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import { useNavigate, useParams } from "react-router-dom";
+const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
-const CreateProductPage = () => {
-  const apiUrl = import.meta.env.VITE_API_BASE_URL;
-  const [form] = useForm();
+const UpdateProductPage = () => {
+  const params = useParams();
+  const productId = params.id;
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  const navigate = useNavigate();
 
-
-  // console.log(categories);
-
+  const [form] = Form.useForm();
   const onFinish = async (values) => {
-    const imgLinks = values.img.split("\n").map((link) => link.trim());
-    const colors = values.colors.split("\n").map((link) => link.trim());
-    const sizes = values.sizes.split("\n").map((link) => link.trim());
-
     try {
       setLoading(true);
-      const res = await fetch(`${apiUrl}/api/products`, {
-        method: "POST",
+      const res = await fetch(`${apiUrl}/api/products/${productId}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...values,
-          price: {
-            current: values.current,
-            discount: values.discount,
-          },
-          img: imgLinks,
-          sizes,
-          colors,
-        }),
+        body: JSON.stringify(values),
       });
+      console.log("values-->", values);
       if (res.ok) {
-        message.success("Ürün başarıyla oluşturuldu");
+        message.success("Başarıyla güncellendi");
+        navigate(-1);
+      } else {
+        message.error("Güncelleme başarısız");
       }
     } catch (error) {
-      console.log("CreateProductPage-->", error);
+      console.log("onFinish-->", error);
     } finally {
       setLoading(false);
     }
   };
+  // console.log("categoryId", categoryId);
+
+  const fetchSingleProduct = useCallback(async () => {
+    const res = await fetch(`${apiUrl}/api/products/${productId}`);
+    console.log(res);
+    setLoading(true);
+    try {
+      if (!res.ok) {
+        throw new Error("Veriler alınamadı");
+      }
+      const resData = await res.json();
+      console.log("resData", resData);
+
+      if (resData) {
+        form.setFieldsValue({
+          name: resData.singleProduct.name,
+          current: resData.singleProduct.price.current,
+          discount: resData.singleProduct.price.discount,
+          description: resData.singleProduct.description,
+          img: resData.singleProduct.img.join("\n"),
+          colors: resData.singleProduct.colors.join("\n"),
+          sizes: resData.singleProduct.sizes.join("\n"),
+          // category: resData.singleProduct.category.name,
+
+          // category: resData.singleProduct.category,
+        });
+        console.log(resData);
+      }
+    } catch (error) {
+      console.error("fetchUsers -->", error);
+    } finally {
+      setLoading(false);
+    }
+  }, [productId, form]);
+  useEffect(() => {
+    fetchSingleProduct();
+  }, [fetchSingleProduct]);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`${apiUrl}/api/categories`);
+
+        if (res.ok) {
+          const resData = await res.json();
+          setCategories(resData.categories);
+        } else {
+          message.error("Ürün getirilemedi");
+        }
+      } catch (error) {
+        console.error("fetchUsers -->", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, [apiUrl]);
   return (
     <Spin spinning={loading}>
       <Form form={form} name="basic" layout="vertical" onFinish={onFinish}>
@@ -177,7 +223,7 @@ const CreateProductPage = () => {
 
         <Space size={"large"}>
           <Button type="primary" htmlType="submit">
-            Oluştur
+            Gücelle
           </Button>
           <Button
             type="primary"
@@ -193,4 +239,4 @@ const CreateProductPage = () => {
   );
 };
 
-export default CreateProductPage;
+export default UpdateProductPage;

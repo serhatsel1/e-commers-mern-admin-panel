@@ -39,7 +39,10 @@ const getSingleProduct = async (req, res) => {
   try {
     const productId = req.params.productId;
 
-    const singleProduct = await Product.findById(productId);
+    const singleProduct = await Product.findById(productId).populate({
+      path: "category",
+      select: "name",
+    });
 
     // console.log("singleProduct", singleProduct);
 
@@ -62,7 +65,7 @@ const updateProduct = async (req, res) => {
     const product = await Product.findByIdAndUpdate(productId, productData, {
       new: true,
     });
-    await product.save();
+    // await product.save();
     res.status(201).json({
       product,
     });

@@ -14,6 +14,7 @@ import CreateCategoryPage from "./pages/Admin/Categories/CreateCategoryPage";
 import "./App.css";
 import CreateProductPage from "./pages/Admin/Products/CreateProductPage";
 import ProductPage from "./pages/Admin/Products/ProductPage";
+import UpdateProductPage from "./pages/Admin/Products/UPdateProductPage";
 function App() {
   return (
     <>
@@ -33,6 +34,7 @@ function App() {
           <Route path="categories/create" element={<CreateCategoryPage />}/>
           <Route path="products" element={<ProductPage />}/>
           <Route path="products/create" element={<CreateProductPage />}/>
+          <Route path="product/update/:id" element={<UpdateProductPage />}/>
         </Route>
       </Routes>
     </>
