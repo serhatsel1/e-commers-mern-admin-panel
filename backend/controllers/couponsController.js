@@ -118,7 +118,7 @@ const deleteCoupon = async (req, res) => {
     const couponId = req.params.couponId;
 
     const coupon = await Coupon.findByIdAndDelete(couponId);
-    await coupon.save();
+    // await coupon.save();
     res.status(201).json({
       coupon,
     });
