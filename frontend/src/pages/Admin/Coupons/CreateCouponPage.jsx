@@ -1,11 +1,11 @@
-import { Button, Form, Input, Space, Spin, message } from "antd";
+import { Button, Form, Input, InputNumber, Space, Spin, message } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
-const CreateCategoryPage = () => {
+const CreateCouponPage = () => {
   const navigate = useNavigate();
   const [form] = useForm();
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ const CreateCategoryPage = () => {
   const onFinish = async (values) => {
     try {
       setLoading(true);
-      const res = await fetch(`${apiUrl}/api/categories`, {
+      const res = await fetch(`${apiUrl}/api/coupon`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -25,7 +25,7 @@ const CreateCategoryPage = () => {
       }
     } catch (error) {
       message.error("Ürün oluşturulurken bir hatayla karşılaşıldı ");
-      console.log("CreateCategoryPage-->", error);
+      console.log("CreateCouponPage-->", error);
     } finally {
       setLoading(false);
     }
@@ -35,12 +35,12 @@ const CreateCategoryPage = () => {
     <Spin spinning={loading}>
       <Form form={form} name="basic" layout="vertical" onFinish={onFinish}>
         <Form.Item
-          label="Kategori Adı"
-          name="name"
+          label="Kupon Adı"
+          name="code"
           rules={[
             {
               required: true,
-              message: "Lütfen kategorinin adını giriniz",
+              message: "Lütfen kuponun kodunu giriniz",
             },
           ]}
         >
@@ -48,16 +48,16 @@ const CreateCategoryPage = () => {
         </Form.Item>
 
         <Form.Item
-          label="Kategori görseli"
-          name="img"
+          label="Kupon indirim oranı (%)"
+          name="discountPercent"
           rules={[
             {
               required: true,
-              message: "Lütfen görseli yükleyin",
+              message: "Lütfen indirim oranını giriniz",
             },
           ]}
         >
-          <Input />
+          <InputNumber />
         </Form.Item>
         <Space size={"large"}>
           <Button type="primary" htmlType="submit">
@@ -77,4 +77,4 @@ const CreateCategoryPage = () => {
   );
 };
 
-export default CreateCategoryPage;
+export default CreateCouponPage;

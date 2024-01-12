@@ -29,7 +29,7 @@ const CouponPage = () => {
   const deleteCategory = async (couponId) => {
     console.log("couponId", couponId);
     try {
-      setLoading(true)
+      setLoading(true);
       const res = await fetch(`${apiUrl}/api/coupon/${couponId}`, {
         method: "DELETE",
       });
@@ -42,8 +42,8 @@ const CouponPage = () => {
       }
     } catch (error) {
       console.error("deleteCategory -->", error);
-    }finally{
-      setLoading(false)
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,10 +55,10 @@ const CouponPage = () => {
       render: (code) => <b>{code}</b>,
     },
     {
-      title: "Kupon indirim oranı (%)",
+      title: "İndirim oranı (%)",
       dataIndex: "discountPercent",
       key: "discountPercent",
-      render: (percent) => <span>% {percent}</span>,
+      render: (percent) => <span>% {percent >= 20 ? <b style={{color:"red"}}> {percent}</b> : percent}</span>,
     },
 
     {
@@ -70,14 +70,14 @@ const CouponPage = () => {
           <Button
             type="primary"
             onClick={() => {
-              navigate(`/admin/categories/update/${record?._id}`);
+              navigate(`/admin/coupon/update/${record?._id}`);
             }}
           >
             Düzenle
           </Button>
           <Popconfirm
             title="Kategoriyi sil"
-            description="Kategoriyi silmek istediğinizden emin misiniz?"
+            description="Kuponu silmek istediğinizden emin misiniz?"
             okText="Yes"
             cancelText="No"
             onConfirm={() => deleteCategory(record._id)}

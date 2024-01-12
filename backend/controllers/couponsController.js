@@ -101,7 +101,7 @@ const updateCoupon = async (req, res) => {
       },
       { new: true }
     );
-    await coupon.save();
+    // await coupon.save();
     res.status(201).json({
       coupon,
     });

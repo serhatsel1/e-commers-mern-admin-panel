@@ -1,18 +1,18 @@
-import { Button, Form, Input, Spin, message } from "antd";
+import { Button, Form, Input, InputNumber, Spin, message } from "antd";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
-const UpdateCategoryPage = () => {
+const UpdateCouponPage = () => {
   const params = useParams();
-  const categoryId = params.id;
+  const couponId = params.id;
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [form] = Form.useForm();
   const onFinish = async (values) => {
     try {
       setLoading(true);
-      const res = await fetch(`${apiUrl}/api/categories/update/${categoryId}`, {
+      const res = await fetch(`${apiUrl}/api/coupon/${couponId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
@@ -30,10 +30,10 @@ const UpdateCategoryPage = () => {
       setLoading(false);
     }
   };
-  // console.log("categoryId", categoryId);
+  // console.log("couponId", couponId);
 
-  const fetchSingleCategory = useCallback(async () => {
-    const res = await fetch(`${apiUrl}/api/categories/${categoryId}`);
+  const fetchSingleCoupon = useCallback(async () => {
+    const res = await fetch(`${apiUrl}/api/coupon/${couponId}`);
     console.log(res);
     setLoading(true);
     try {
@@ -41,10 +41,11 @@ const UpdateCategoryPage = () => {
         throw new Error("Veriler alınamadı");
       }
       const resData = await res.json();
+      console.log("resData",resData)
       if (resData) {
         form.setFieldsValue({
-          name: resData.singleCategory.name,
-          img: resData.singleCategory.img,
+          code: resData.singlecoupon.code,
+          discountPercent: resData.singlecoupon.discountPercent,
         });
         console.log(resData);
       }
@@ -53,10 +54,10 @@ const UpdateCategoryPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [apiUrl, categoryId, form]);
+  }, [apiUrl, couponId, form]);
   useEffect(() => {
-    fetchSingleCategory();
-  }, [fetchSingleCategory]);
+    fetchSingleCoupon();
+  }, [fetchSingleCoupon]);
 
   return (
     <Spin spinning={loading}>
@@ -71,8 +72,8 @@ const UpdateCategoryPage = () => {
         onFinish={onFinish}
       >
         <Form.Item
-          label="Kategori Adı"
-          name="name"
+          label="Kupon Kodu"
+          name="code"
           rules={[
             {
               required: true,
@@ -84,8 +85,8 @@ const UpdateCategoryPage = () => {
         </Form.Item>
 
         <Form.Item
-          label="Kategori görseli"
-          name="img"
+          label="Kupon indirim oranı(%)"
+          name="discountPercent"
           rules={[
             {
               required: true,
@@ -93,7 +94,7 @@ const UpdateCategoryPage = () => {
             },
           ]}
         >
-          <Input />
+          <InputNumber />
         </Form.Item>
 
         <Button type="primary" htmlType="submit">
@@ -104,4 +105,4 @@ const UpdateCategoryPage = () => {
   );
 };
 
-export default UpdateCategoryPage;
+export default UpdateCouponPage;

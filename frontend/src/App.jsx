@@ -11,11 +11,13 @@ import UserPage from "./pages/Admin/UserPage";
 import CategoryPage from "./pages/Admin/Categories/CatogoryPage";
 import UpdateCategoryPage from "./pages/Admin/Categories/UpdateCategoryPage";
 import CreateCategoryPage from "./pages/Admin/Categories/CreateCategoryPage";
-import "./App.css";
 import CreateProductPage from "./pages/Admin/Products/CreateProductPage";
 import ProductPage from "./pages/Admin/Products/ProductPage";
 import UpdateProductPage from "./pages/Admin/Products/UPdateProductPage";
 import CouponPage from "./pages/Admin/Coupons/CouponPage";
+import CreateCouponPage from "./pages/Admin/Coupons/CreateCouponPage";
+import UpdateCouponPage from "./pages/Admin/Coupons/UpdateCouponPage";
+import "./App.css";
 function App() {
   return (
     <>
@@ -37,6 +39,8 @@ function App() {
           <Route path="products/create" element={<CreateProductPage />} />
           <Route path="product/update/:id" element={<UpdateProductPage />} />
           <Route path="coupons" element={<CouponPage />} />
+          <Route path="coupons/:id" element={<CreateCouponPage />} />
+          <Route path="coupon/update/:id" element={<UpdateCouponPage />} />
         </Route>
       </Routes>
     </>
