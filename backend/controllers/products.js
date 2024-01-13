@@ -104,10 +104,32 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const searchProduct = async (req, res) => {
+  try {
+    const productName = req.params.productName;
+
+    const products = await Product.find({
+      name: { $regex: new RegExp(productName, "i") },
+    });
+    if (!products || products.length === 0) {
+      res.status(500).json({
+        message: "Sonuç Bulunamadı",
+      });
+    }
+    res.status(200).json({
+      products,
+    });
+  } catch (error) {
+    console.log("searchProduct-->", error);
+    res.status(500);
+  }
+};
+
 export {
   createProduct,
   allProducts,
   getSingleProduct,
   updateProduct,
   deleteProduct,
+  searchProduct,
 };

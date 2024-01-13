@@ -32,6 +32,7 @@ const Info = ({ productData }) => {
     <div className="product-info">
       <h1 className="product-title">{productData?.singleProduct?.name}</h1>
       <div className="product-review">
+        <h4>{averageRating.toFixed(1)}</h4>
         <ul className="product-star">
           <li>
             <i className="bi bi-star-fill"></i>
@@ -49,7 +50,7 @@ const Info = ({ productData }) => {
             <i className="bi bi-star-half"></i>
           </li>
         </ul>
-        <h4>{averageRating.toFixed(1)}</h4><span>Average Rating </span>
+
         <span>
           {productData?.singleProduct?.reviews?.length > 0 ? (
             <span>{productData?.singleProduct?.reviews?.length} reviews</span>
