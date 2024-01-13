@@ -18,7 +18,7 @@ const ProductDetails = ({productData}) => {
             </main>
           </div>
 
-          <Tabs />
+          <Tabs productData={productData}/>
         </div>
       </div>
     </section>
