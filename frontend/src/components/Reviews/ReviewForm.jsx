@@ -2,13 +2,24 @@ import { useState } from "react";
 
 const ReviewForm = () => {
   const [starRating, setStarRating] = useState(5);
+  const [review, setReview] = useState("");
 
   const HandleStarRatingChange = (e, starValue) => {
     e.preventDefault();
     setStarRating(starValue);
   };
+  console.log(review);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = {
+      rating: starRating,
+      review: review,
+    };
+
+    console.log(formData);
+  };
   return (
-    <form className="comment-form">
+    <form className="comment-form" onSubmit={handleSubmit}>
       <p className="comment-notes">
         Your email address will not be published. Required fields are marked
         <span className="required">*</span>
@@ -71,7 +82,12 @@ const ReviewForm = () => {
           Your review
           <span className="required">*</span>
         </label>
-        <textarea id="comment" cols="50" rows="10"></textarea>
+        <textarea
+          id="comment"
+          cols="50"
+          rows="10"
+          onChange={(e) => setReview(e.target.value)}
+        ></textarea>
       </div>
 
       <div className="comment-form-cookies">
