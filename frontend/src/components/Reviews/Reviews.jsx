@@ -18,7 +18,7 @@ const Reviews = ({ active, productData }) => {
       </div>
       <div className="review-form-wrapper">
         <h2>Add a review</h2>
-        <ReviewForm />
+        <ReviewForm productData={productData} />
       </div>
     </div>
   );

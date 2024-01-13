@@ -1,23 +1,61 @@
 import { useState } from "react";
+import PropTypes from "prop-types";
+import { message } from "antd";
 
-const ReviewForm = () => {
+const ReviewForm = ({ productData }) => {
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
   const [starRating, setStarRating] = useState(5);
   const [review, setReview] = useState("");
-
+  const user = localStorage.getItem("user")
+    ? JSON.parse(localStorage.getItem("user"))
+    : null;
+  // console.log("user", user);
   const HandleStarRatingChange = (e, starValue) => {
     e.preventDefault();
     setStarRating(starValue);
   };
-  console.log(review);
-  const handleSubmit = (e) => {
+  // console.log(review);
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = {
-      rating: starRating,
-      review: review,
+      reviews: [
+        ...productData.singleProduct.reviews,
+        {
+          text: review,
+          rating: parseInt(starRating),
+          user: user._id,
+        },
+      ],
     };
 
-    console.log(formData);
+    try {
+      const res = await fetch(
+        `${apiUrl}/api/products/${productData?.singleProduct?._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (res.ok) {
+        const resData = await res.json();
+        message.success("Başarıyla güncellendi");
+        setReview("");
+        setStarRating(0);
+
+        // console.log("resData", resData);
+      } else {
+        message.error("Güncelleme başarısız");
+      }
+    } catch (error) {
+      console.error("handleSubmit-->", error);
+    }
   };
+
   return (
     <form className="comment-form" onSubmit={handleSubmit}>
       <p className="comment-notes">
@@ -87,6 +125,7 @@ const ReviewForm = () => {
           cols="50"
           rows="10"
           onChange={(e) => setReview(e.target.value)}
+          value={review}
         ></textarea>
       </div>
 
@@ -103,6 +142,10 @@ const ReviewForm = () => {
       </div>
     </form>
   );
+};
+
+ReviewForm.propTypes = {
+  productData: PropTypes.object,
 };
 
 export default ReviewForm;
