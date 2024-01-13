@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import PorductItem from "./PorductItem";
-import ProductsData from "../../data.json";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 import "./Products.css";
