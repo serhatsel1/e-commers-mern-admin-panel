@@ -111,7 +111,8 @@ const searchProduct = async (req, res) => {
     const products = await Product.find({
       name: { $regex: new RegExp(productName, "i") },
     });
-    if (!products || products.length === 0) {
+
+    if (!products) {
       res.status(500).json({
         message: "Sonuç Bulunamadı",
       });
