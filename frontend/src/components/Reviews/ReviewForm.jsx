@@ -2,7 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { message } from "antd";
 
-const ReviewForm = ({ productData }) => {
+const ReviewForm = ({ productData, setProductData }) => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
   const [starRating, setStarRating] = useState(5);
@@ -43,6 +43,12 @@ const ReviewForm = ({ productData }) => {
 
       if (res.ok) {
         const resData = await res.json();
+        setProductData(resData);
+
+        const updatedProductData = await fetchSingleProduct(
+          productData?.singleProduct?._id
+        );
+        setProductData(updatedProductData);
         message.success("Başarıyla güncellendi");
         setReview("");
         setStarRating(0);
@@ -53,6 +59,19 @@ const ReviewForm = ({ productData }) => {
       }
     } catch (error) {
       console.error("handleSubmit-->", error);
+    }
+  };
+  const fetchSingleProduct = async (productId) => {
+    try {
+      const res = await fetch(`${apiUrl}/api/products/${productId}`);
+      if (!res.ok) {
+        throw new Error("Veriler alınamadı");
+      }
+      const resData = await res.json();
+      return resData;
+    } catch (error) {
+      console.error("fetchSingleProduct -->", error);
+      return null;
     }
   };
 
@@ -146,6 +165,7 @@ const ReviewForm = ({ productData }) => {
 
 ReviewForm.propTypes = {
   productData: PropTypes.object,
+  setProductData: PropTypes.func,
 };
 
 export default ReviewForm;

@@ -3,7 +3,7 @@ import Reviews from "../../Reviews/Reviews";
 import PropTypes from "prop-types";
 import "./Tabs.css";
 
-const Tabs = ({ productData }) => {
+const Tabs = ({ productData, setProductData }) => {
   const [activeTab, setActiveTab] = useState("desc");
 
   const handleTabClick = (e, tab) => {
@@ -74,10 +74,11 @@ const Tabs = ({ productData }) => {
                 <th>Size</th>
                 <td>
                   <p>
-                    {productData.singleProduct.sizes.map((size, i) => (
+                    {productData?.singleProduct?.sizes?.map((size, i) => (
                       <span key={i}>
                         {size.toUpperCase()}
-                        {i < productData.singleProduct.sizes.length - 1 && ", "}
+                        {i < productData?.singleProduct?.sizes?.length - 1 &&
+                          ", "}
                       </span>
                     ))}
                   </p>
@@ -89,6 +90,7 @@ const Tabs = ({ productData }) => {
         <Reviews
           active={activeTab === "reviews" ? "content active" : "content"}
           productData={productData}
+          setProductData={setProductData}
         />
       </div>
     </div>
@@ -97,6 +99,7 @@ const Tabs = ({ productData }) => {
 
 Tabs.propTypes = {
   productData: PropTypes.object,
+  setProductData: PropTypes.func,
 };
 
 export default Tabs;

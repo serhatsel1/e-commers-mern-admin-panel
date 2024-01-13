@@ -28,7 +28,8 @@ const ProductDetailsPage = () => {
   }, [apiUrl]);
   return (
     <>
-      { productData ? <ProductDetails productData={productData}  /> : <p>Ürün yükleniyor</p>}
+      { productData ? <ProductDetails productData={productData} 
+      setProductData={setProductData} /> : <p>Ürün yükleniyor</p>}
     </>
   );
 };

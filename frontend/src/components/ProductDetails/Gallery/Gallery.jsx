@@ -45,7 +45,7 @@ const Gallery = ({ productData }) => {
     productData?.singleProduct?.img[0]
   );
   // const [show, setShow] = useState(0);
-  console.log("gallery", productData);
+  // console.log("gallery", productData);
 
   const sliderSettings = {
     dots: false,

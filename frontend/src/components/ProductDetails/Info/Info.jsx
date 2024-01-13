@@ -1,20 +1,20 @@
 import PropTypes from "prop-types";
 
 import "./Info.css";
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { CartContext } from "../../../context/CartProvider";
 
 const Info = ({ productData }) => {
   const { addToCart, cartItems } = useContext(CartContext);
   const quantityRef = useRef();
-  const currentPrice = productData.singleProduct.price.current;
-  const discountPercent = productData.singleProduct.price.discount;
+  const currentPrice = productData?.singleProduct?.price.current;
+  const discountPercent = productData?.singleProduct?.price?.discount;
   const filteredCart = cartItems.find(
     (cartItem) => cartItem?._id === productData?.singleProduct?._id
   );
 
   const newPrice = ((100 - discountPercent) / 100) * currentPrice;
-  console.log("Info-->", productData.singleProduct);
+  // console.log("Info-->", productData.singleProduct);
   // console.log("Info quantityRef-->", quantityRef);
   return (
     <div className="product-info">
@@ -41,7 +41,7 @@ const Info = ({ productData }) => {
       </div>
       <div className="product-price">
         <s className="old-price">
-          ${productData?.singleProduct?.price.current.toFixed(2)}
+          ${productData?.singleProduct?.price?.current?.toFixed(2)}
         </s>
         <strong className="new-price">${newPrice.toFixed(2)}</strong>
       </div>
