@@ -19,10 +19,15 @@ const createProduct = async (req, res) => {
 
 const allProducts = async (req, res) => {
   try {
-    const products = await Product.find().populate({
-      path: "category",
-      select: "name",
-    });
+    const products = await Product.find()
+      .populate({
+        path: "category",
+        select: "name",
+      })
+      .populate({
+        path: "reviews.user",
+        select: ["name", "avatar"],
+      });
 
     res.status(200).json({
       products,
@@ -39,10 +44,15 @@ const getSingleProduct = async (req, res) => {
   try {
     const productId = req.params.productId;
 
-    const singleProduct = await Product.findById(productId).populate({
-      path: "category",
-      select: "name",
-    });
+    const singleProduct = await Product.findById(productId)
+      .populate({
+        path: "category",
+        select: "name",
+      })
+      .populate({
+        path: "reviews.user",
+        select: ["name", "avatar"],
+      });
 
     // console.log("singleProduct", singleProduct);
 

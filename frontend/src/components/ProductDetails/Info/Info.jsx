@@ -13,6 +13,18 @@ const Info = ({ productData }) => {
     (cartItem) => cartItem?._id === productData?.singleProduct?._id
   );
 
+  const ratings =
+    productData?.singleProduct?.reviews?.map((review) => review.rating) || [];
+
+  const ratingCount = ratings.reduce((previousValue, currentValue) => {
+    return previousValue + currentValue;
+  }, 0);
+
+  const averageRating = ratingCount / ratings.length;
+
+  console.log(averageRating, "ratingCount");
+
+  console.log("productData", productData);
   const newPrice = ((100 - discountPercent) / 100) * currentPrice;
   // console.log("Info-->", productData.singleProduct);
   // console.log("Info quantityRef-->", quantityRef);
@@ -37,7 +49,14 @@ const Info = ({ productData }) => {
             <i className="bi bi-star-half"></i>
           </li>
         </ul>
-        <span>2 reviews</span>
+        <h4>{averageRating.toFixed(1)}</h4><span>Average Rating </span>
+        <span>
+          {productData?.singleProduct?.reviews?.length > 0 ? (
+            <span>{productData?.singleProduct?.reviews?.length} reviews</span>
+          ) : (
+            <span>{productData?.singleProduct?.reviews?.length} review</span>
+          )}
+        </span>
       </div>
       <div className="product-price">
         <s className="old-price">

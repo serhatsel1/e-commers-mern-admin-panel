@@ -6,31 +6,28 @@ const ReviewItem = ({ reviewItem }) => {
     "tr-TR",
     options
   );
+  // console.log("reviewItem", reviewItem);
   return (
     <li className="comment-item">
       <div className="comment-avatar">
-        <img src="/img/avatars/avatar1.jpg" alt="loading" />
+        <img
+          style={{ width: "60px" }}
+          src={reviewItem.user.avatar}
+          alt="loading"
+        />
       </div>
       <div className="comment-text">
         <ul className="comment-star">
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
+          {Array.from({ length: reviewItem.rating }, (_, i) => {
+            return (
+              <li key={i}>
+                <i className="bi bi-star-fill"></i>
+              </li>
+            );
+          })}
         </ul>
         <div className="comment-meta">
-          <strong>admin</strong>
+          <strong>{reviewItem.user.name}</strong>
           <span>-</span>
           <time>{formattedDate}</time>
         </div>
