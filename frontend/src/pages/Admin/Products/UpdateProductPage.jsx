@@ -24,10 +24,13 @@ const UpdateProductPage = () => {
   const onFinish = async (values) => {
     try {
       setLoading(true);
+      const imgLinks = values.img.split("\n").map((link) => link.trim());
+      const colors = values.colors.split("\n").map((link) => link.trim());
+      const sizes = values.sizes.split("\n").map((link) => link.trim());
       const res = await fetch(`${apiUrl}/api/products/${productId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ ...values, img: imgLinks, colors, sizes }),
       });
       console.log("values-->", values);
       if (res.ok) {

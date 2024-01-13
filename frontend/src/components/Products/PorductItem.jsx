@@ -21,8 +21,8 @@ const PorductItem = ({ productItem }) => {
     <div className="product-item glide__slide glide__slide--active">
       <div className="product-image">
         <a href="#">
-          <img style={{height:"300px"}} src={productItem.img[0]} alt="" className="img1" />
-          <img src={productItem.img[1]} alt="" className="img2" />
+          <img style={{height:"300px"}} src={productItem.img[0]} alt="loading" className="img1" />
+          <img src={productItem.img[1]} alt="loading" className="img2" />
         </a>
       </div>
       <div className="product-info">
@@ -65,11 +65,11 @@ const PorductItem = ({ productItem }) => {
           <button>
             <i className="bi bi-heart-fill"></i>
           </button>
-          <a>
+          <div>
             <Link to={`product/${productItem._id}`} className="product-link">
               <i className="bi bi-eye-fill"></i>
             </Link>
-          </a>
+          </div>
           <a href="#">
             <i className="bi bi-share-fill"></i>
           </a>

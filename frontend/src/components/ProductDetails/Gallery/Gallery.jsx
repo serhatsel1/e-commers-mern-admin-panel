@@ -66,7 +66,7 @@ const Gallery = ({ productData }) => {
           style={{ minHeight: "570px" }}
           src={activeİmage}
           id="single-image"
-          alt=""
+          alt="loading"
         />
       </div>
       <div className="product-thumb">
@@ -82,7 +82,7 @@ const Gallery = ({ productData }) => {
                   <img
                     style={{ height: "160px" }}
                     src={`${product}`}
-                    alt=""
+                    alt="loading"
                     className={`img-fluid ${
                       product === activeİmage && "active"
                     }`}
