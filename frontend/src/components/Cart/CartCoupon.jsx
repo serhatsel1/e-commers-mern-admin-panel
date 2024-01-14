@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { message } from "antd";
 import { CartContext } from "../../context/CartProvider";
 
