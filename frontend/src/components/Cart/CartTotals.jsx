@@ -48,6 +48,7 @@ const CartTotals = () => {
       }
 
       const session = await res.json();
+      console.log("session", session);
       const result = await stripe.redirectToCheckout({
         sessionId: session.id,
       });
