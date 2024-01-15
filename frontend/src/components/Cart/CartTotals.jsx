@@ -1,6 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartProvider";
-import { message } from "antd";
+import { Spin, message } from "antd";
 import { loadStripe } from "@stripe/stripe-js";
 
 const CartTotals = () => {
@@ -8,6 +8,7 @@ const CartTotals = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const { cartItems } = useContext(CartContext);
   const [checkedCargo, setCheckedCargo] = useState(false);
+  const [loading, setLoading] = useState(false);
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
     : null;
@@ -25,6 +26,7 @@ const CartTotals = () => {
   }, 0);
 
   const handlePayment = async () => {
+    setLoading(true);
     if (!user) {
       message.info("Ödeme yapmak için lütfen giriş yapınız");
     }
@@ -58,8 +60,10 @@ const CartTotals = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
-    console.log(body);
+    // console.log(body);
   };
 
   const cargoFee = 15.69;
@@ -106,9 +110,11 @@ const CartTotals = () => {
         </tbody>
       </table>
       <div className="checkout">
-        <button className="btn btn-lg" onClick={handlePayment}>
-          Proceed to checkout
-        </button>
+        <Spin spinning={loading} size="large">
+          <button className="btn btn-lg" onClick={handlePayment}>
+            Proceed to checkout
+          </button>
+        </Spin>
       </div>
     </div>
   );

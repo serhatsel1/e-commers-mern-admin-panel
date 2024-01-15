@@ -20,6 +20,8 @@
   width: 100%;
 }
 
+
+
 .cart-page .progress-bar-title {
   font-size: 12px;
 }
@@ -217,6 +219,18 @@
 
 /*! cart form end  */
 
+/* spin css */
+
+.cart-totals .ant-spin {
+  display: flex;
+  justify-content: center;
+}
+
+.cart-totals .ant-spin .ant-spin-dot {
+  position: relative !important;
+  inset-inline-start: unset !important;
+  margin: unset !important;
+}
 /* responsive */
 
 @media (max-width: 992px) {
