@@ -2,7 +2,6 @@ import { Spin, Table, message } from "antd";
 import { useEffect, useState } from "react";
 
 const OrderPage = () => {
-  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const MY_STRIPE_SECRET_KEY = import.meta.env.VITE_STRIPE_SECRET_KEY;
   const [dataSource, setDataSource] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,6 +14,7 @@ const OrderPage = () => {
     {
       title: "Sipariş Fiyatı",
       dataIndex: "amount",
+      render: (record) => <b>${(record / 100).toFixed(2)}</b>,
     },
   ];
 
