@@ -19,7 +19,9 @@ const Success = () => {
             <Link to={"/"} key="home">
               <Button type="primary">Anasayfa</Button>
             </Link>,
-            <Button key="buy">Siparişlerim</Button>,
+            <a href="/admin/orders" key={"order"}>
+              <Button key="buy">Siparişlerim</Button>
+            </a>,
           ]}
         />
       </div>
