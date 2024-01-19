@@ -28,7 +28,7 @@ const CartTotals = () => {
   const handlePayment = async () => {
     setLoading(true);
     if (!user) {
-      message.info("Ödeme yapmak için lütfen giriş yapınız");
+      return message.info("Ödeme yapmak için lütfen giriş yapınız");
     }
     const body = {
       products: cartItems,

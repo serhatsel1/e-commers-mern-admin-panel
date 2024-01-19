@@ -5,7 +5,7 @@ import { message } from "antd";
 const ReviewForm = ({ productData, setProductData }) => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
 
-  const [starRating, setStarRating] = useState(5);
+  const [starRating, setStarRating] = useState(0);
   const [review, setReview] = useState("");
   const user = localStorage.getItem("user")
     ? JSON.parse(localStorage.getItem("user"))
@@ -18,6 +18,9 @@ const ReviewForm = ({ productData, setProductData }) => {
   // console.log(review);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (starRating === 0) {
+      return message.info("Ürünü değerlendirmek için lütfen puanlayın !");
+    }
     const formData = {
       reviews: [
         ...productData.singleProduct.reviews,
@@ -145,6 +148,7 @@ const ReviewForm = ({ productData, setProductData }) => {
           rows="10"
           onChange={(e) => setReview(e.target.value)}
           value={review}
+          required
         ></textarea>
       </div>
 

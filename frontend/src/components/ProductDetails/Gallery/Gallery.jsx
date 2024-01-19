@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 import "./Gallery.css";
@@ -43,10 +43,12 @@ PrevBtn.propTypes = {
 const Gallery = ({ productData }) => {
   const [activeİmage, setActiveİmage] = useState(
     productData?.singleProduct?.img[0]
+    // ""
   );
-  // const [show, setShow] = useState(0);
-  // console.log("gallery", productData);
-
+  useEffect(() => {
+    // 'productData' değiştiğinde çalışacak kod buraya gelecek
+    setActiveİmage(productData?.singleProduct?.img[0]);
+  }, [productData]);
   const sliderSettings = {
     dots: false,
     infinite: true,
@@ -56,7 +58,6 @@ const Gallery = ({ productData }) => {
     prevArrow: <PrevBtn />,
   };
 
-  // const imgLinks = productData?.singleProduct?.img?.split("\n").map((link) => link.trim());
   console.log(activeİmage);
   // console.log(imgLinks)
   return (

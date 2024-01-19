@@ -1,23 +1,24 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { message } from "antd";
-
 import { useState } from "react";
 import "./Search.css";
 
 const Search = ({ isSearchShow, setIsSearchShow }) => {
-  const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const [searchResults, setSearchResults] = useState(null);
-  // const [searchValue, setSearchValue] = useState("");
+  const apiUrl = import.meta.env.VITE_API_BASE_URL;
+
   const handleCloseModal = () => {
     setIsSearchShow(false);
     setSearchResults(null);
   };
+
   const handleSearch = async (e) => {
     e.preventDefault();
     const productName = e.target[0].value;
+
     if (productName.trim().length === 0) {
-      message.warning("Lütfen ürün adı giriniz !");
+      message.warning("Boş karakter arayamazsınız!");
       return;
     }
 
@@ -27,16 +28,17 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
       );
 
       if (!res.ok) {
-        message.error("Ürün getirilemedi");
+        message.error("Ürün getirme hatası!");
         return;
       }
-      const resData = await res.json();
-      setSearchResults(resData);
+
+      const data = await res.json();
+      setSearchResults(data);
     } catch (error) {
-      console.log("handleSearch-->", error);
+      console.log(error);
     }
   };
-  console.log(searchResults);
+
   return (
     <div className={`modal-search ${isSearchShow ? "show" : ""} `}>
       <div className="modal-wrapper">
@@ -45,10 +47,7 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
           Start typing to see products you are looking for.
         </p>
         <form className="search-form" onSubmit={handleSearch}>
-          <input
-            type="text"
-            placeholder={searchResults === null && "Search a product"}
-          />
+          <input type="text" placeholder="Search a product" />
           <button>
             <i className="bi bi-search"></i>
           </button>
@@ -61,14 +60,11 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
             className="results"
             style={{
               display: `${
-                searchResults?.products?.length === 0 ||
-                !searchResults?.products
-                  ? "flex"
-                  : "grid"
+                searchResults?.length === 0 || !searchResults ? "flex" : "grid"
               }`,
             }}
           >
-            {!searchResults?.products && (
+            {!searchResults && (
               <b
                 className="result-item"
                 style={{
@@ -79,7 +75,7 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
                 Ürün Ara...
               </b>
             )}
-            {searchResults?.products?.length === 0 && (
+            {searchResults?.length === 0 && (
               <a
                 href="#"
                 className="result-item"
@@ -90,9 +86,9 @@ const Search = ({ isSearchShow, setIsSearchShow }) => {
               >
                 😔Aradığınız Ürün Bulunamadı😔
               </a>
-            )}{" "}
-            {searchResults?.products?.length > 0 &&
-              searchResults?.products?.map((resultItem) => (
+            )}
+            {searchResults?.length > 0 &&
+              searchResults?.map((resultItem) => (
                 <Link
                   to={`product/${resultItem._id}`}
                   className="result-item"

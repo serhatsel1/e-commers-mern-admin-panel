@@ -25,7 +25,7 @@ const ProductDetailsPage = () => {
     };
 
     fetchSingleProduct();
-  }, [apiUrl]);
+  }, [apiUrl,productId]);
   return (
     <>
       { productData ? <ProductDetails productData={productData} 
