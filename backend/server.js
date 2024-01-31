@@ -8,7 +8,7 @@ import cors from "cors";
 dotenv.config();
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT;
 
 const connect = async () => {
   try {
