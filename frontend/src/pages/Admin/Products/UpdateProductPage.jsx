@@ -30,7 +30,7 @@ const UpdateProductPage = () => {
       const res = await fetch(`${apiUrl}/api/products/${productId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, img: imgLinks, colors, sizes }),
+        body: JSON.stringify({ ...values, img: imgLinks, colors, sizes }),   
       });
       console.log("values-->", values);
       if (res.ok) {

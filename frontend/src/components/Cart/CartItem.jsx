@@ -10,7 +10,7 @@ const CartItem = ({ cartItem }) => {
     <tr className="cart-item">
       <td></td>
       <td className="cart-image">
-        <img src={cartItem.img} alt="loading" />
+        <img style={{width:"60px",height:"75px"}} src={cartItem.img} alt="loading" />
         <i
           className="bi bi-x delete-cart"
           onClick={() => removeFromCart(cartItem._id)}

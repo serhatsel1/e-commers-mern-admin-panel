@@ -22,7 +22,7 @@ const PorductItem = ({ productItem }) => {
       <div className="product-image">
         <a href="#">
           <img style={{height:"300px"}} src={productItem.img[0]} alt="loading" className="img1" />
-          <img src={productItem.img[1]} alt="loading" className="img2" />
+          <img style={{height:"300px"}} src={productItem.img[1]} alt="loading" className="img2" />
         </a>
       </div>
       <div className="product-info">
