@@ -41,7 +41,7 @@ const UpdateCouponPage = () => {
         throw new Error("Veriler alınamadı");
       }
       const resData = await res.json();
-      console.log("resData",resData)
+      console.log("resData", resData);
       if (resData) {
         form.setFieldsValue({
           code: resData.singlecoupon.code,
