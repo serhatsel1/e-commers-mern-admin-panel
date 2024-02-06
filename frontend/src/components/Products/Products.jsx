@@ -24,6 +24,7 @@ function PrevBtn({ onClick }) {
     </button>
   );
 }
+
 PrevBtn.propTypes = {
   onClick: PropTypes.func,
 };
@@ -84,7 +85,7 @@ const Products = () => {
           <p>Summer Collection New Morden Design</p>
         </div>
         <div className="product-wrapper product-carousel">
-          <Spin size="large" spinning={loading}>
+          <Spin spinning={loading}>
             <div className="glide__track">
               <Slider {...sliderSettings}>
                 {products?.products?.map((product) => (
