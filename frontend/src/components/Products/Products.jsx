@@ -3,7 +3,7 @@ import PorductItem from "./PorductItem";
 import Slider from "react-slick";
 import PropTypes from "prop-types";
 import "./Products.css";
-import { message } from "antd";
+import { message, Spin } from "antd";
 
 function NextBtn({ onClick }) {
   return (
@@ -30,8 +30,10 @@ PrevBtn.propTypes = {
 const Products = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const fetchAllProducts = async () => {
       try {
         const res = await fetch(`${apiUrl}/api/products`);
@@ -43,6 +45,8 @@ const Products = () => {
         }
       } catch (error) {
         console.log("FetchAllProducts", fetchAllProducts);
+      } finally {
+        setLoading(false);
       }
     };
     fetchAllProducts();
@@ -81,13 +85,15 @@ const Products = () => {
           <p>Summer Collection New Morden Design</p>
         </div>
         <div className="product-wrapper product-carousel">
-          <div className="glide__track">
-            <Slider {...sliderSettings}>
-              {products?.products?.map((product) => (
-                <PorductItem key={product._id} productItem={product} />
-              ))}
-            </Slider>
-          </div>
+          <Spin size="large" spinning={loading}>
+            <div className="glide__track">
+              <Slider {...sliderSettings}>
+                {products?.products?.map((product) => (
+                  <PorductItem key={product._id} productItem={product} />
+                ))}
+              </Slider>
+            </div>
+          </Spin>
           <div className="glide__arrows"></div>
         </div>
       </div>
