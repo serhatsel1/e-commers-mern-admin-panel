@@ -37,7 +37,7 @@ const Categories = () => {
           <h2>All Categories</h2>
           <p>Summer Collection New Morden Design</p>
         </div>
-        <Spin size="large" spinning={loading}>
+        <Spin spinning={loading}>
           <ul className="category-list">
             {categories?.categories?.map((category) => (
               <CategoryItem key={category?._id} category={category} />
