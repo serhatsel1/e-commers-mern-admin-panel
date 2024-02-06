@@ -32,7 +32,7 @@ const Header = ({ setIsSearchShow }) => {
             </div>
             <div className="header-left">
               <Link to={"/"} className="logo">
-                LOGO
+                <img className="logo" src="/img/e-sel2.png" alt="" />
               </Link>
             </div>
             <div className="header-center" id="sidebar">
@@ -218,9 +218,14 @@ const Header = ({ setIsSearchShow }) => {
             </div>
             <div className="header-right">
               <div className="header-right-links">
-                <Link to={"/auth"} className="header-account">
-                  <i className="bi bi-person"></i>
-                </Link>
+                {localStorage.getItem("user") ? (
+                  ""
+                ) : (
+                  <Link to={"/auth"} className="header-account">
+                    <i className="bi bi-person"></i>
+                  </Link>
+                )}
+
                 <button
                   onClick={() => setIsSearchShow(true)}
                   className="search-button"

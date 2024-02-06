@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Policy from "../Policy/Policy";
 import "./Footer.css";
 
@@ -71,7 +72,9 @@ const Footer = () => {
               <div className="brand-info">
                 <div className="footer-logo">
                   <a href="index.html" className="logo">
-                    LOGO
+                    <Link to={"/"} className="logo">
+                      <img className="logo" src="/img/e-sel2.png" alt="" />
+                    </Link>
                   </a>
                 </div>
                 <div className="footer-desc">
@@ -84,7 +87,7 @@ const Footer = () => {
                 <div className="footer-contact">
                   <p>
                     <a href="tel:555 555 55 55">(+800) 1234 5678 90</a> –{" "}
-                    <a href="mailto:info@example.com">info@example.com</a>
+                    <a href="mailto:info@example.com">selserhat01@gmail.com </a>
                   </p>
                 </div>
               </div>
@@ -176,8 +179,8 @@ const Footer = () => {
             <div className="footer-copyright">
               <div className="site-copyright">
                 <p>
-                  Copyright 2022 © E-Commerce Theme. All right reserved. Powered
-                  by Emin Basbayan.
+                  Copyright 2024 © E-Commerce Theme. All right reserved. Powered
+                  by Serhat SEL.
                 </p>
               </div>
               <a href="#">

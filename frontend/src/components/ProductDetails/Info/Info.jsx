@@ -32,24 +32,28 @@ const Info = ({ productData }) => {
     <div className="product-info">
       <h1 className="product-title">{productData?.singleProduct?.name}</h1>
       <div className="product-review">
-        <h4>{averageRating.toFixed(1)}</h4>
-        <ul className="product-star">
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-fill"></i>
-          </li>
-          <li>
-            <i className="bi bi-star-half"></i>
-          </li>
-        </ul>
+        {averageRating ? <h4>{averageRating.toFixed(1)} </h4> : ""}
+        {averageRating ? (
+          <ul className="product-star">
+            <li>
+              <i className="bi bi-star-fill"></i>
+            </li>
+            <li>
+              <i className="bi bi-star-fill"></i>
+            </li>
+            <li>
+              <i className="bi bi-star-fill"></i>
+            </li>
+            <li>
+              <i className="bi bi-star-fill"></i>
+            </li>
+            <li>
+              <i className="bi bi-star-half"></i>
+            </li>
+          </ul>
+        ) : (
+          null
+        )}
 
         <span>
           {productData?.singleProduct?.reviews?.length > 0 ? (

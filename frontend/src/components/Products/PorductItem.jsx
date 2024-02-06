@@ -21,8 +21,20 @@ const PorductItem = ({ productItem }) => {
     <div className="product-item glide__slide glide__slide--active">
       <div className="product-image">
         <a href="#">
-          <img style={{height:"300px"}} src={productItem.img[0]} alt="loading" className="img1" />
-          <img src={productItem.img[1]} alt="loading" className="img2" />
+          <Link to={`product/${productItem._id}`} className="product-link">
+            <img
+              style={{ height: "300px" }}
+              src={productItem.img[0]}
+              alt="loading"
+              className="img1"
+            />
+            <img
+              style={{ height: "300px" }}
+              src={productItem.img[1]}
+              alt="loading"
+              className="img2"
+            />
+          </Link>
         </a>
       </div>
       <div className="product-info">

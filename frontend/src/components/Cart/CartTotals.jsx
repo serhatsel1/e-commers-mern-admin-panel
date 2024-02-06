@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "../../context/CartProvider";
 import { Spin, message } from "antd";
 import { loadStripe } from "@stripe/stripe-js";
+import { Link } from "react-router-dom";
 
 const CartTotals = () => {
   const stripePublicKey = import.meta.env.VITE_API_STRIPE_PUBLIC_KEY;
@@ -28,7 +29,7 @@ const CartTotals = () => {
   const handlePayment = async () => {
     setLoading(true);
     if (!user) {
-      return message.info("Ödeme yapmak için lütfen giriş yapınız");
+      return message.info("Please log in to make payment");
     }
     const body = {
       products: cartItems,
@@ -115,6 +116,23 @@ const CartTotals = () => {
             Proceed to checkout
           </button>
         </Spin>
+        <br />
+        {!user ? (
+          <Link to={"http://localhost:5173/auth"}>
+            <label
+              style={{
+                cursor: "pointer",
+                color: "blue",
+                padding: "50px",
+              }}
+              className=""
+            >
+              Click here to login !
+            </label>
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

@@ -64,10 +64,10 @@ const ProductPage = () => {
 
   const columns = [
     {
-      title: "Kategori görseli",
+      title: "Ürün görseli",
       dataIndex: "img",
       key: "img",
-      render: (imgSrc) => <img width={100} src={imgSrc} alt="avatar" />,
+      render: (imgSrc) => <img width={100} src={imgSrc[0]} alt="avatar" />,
     },
     {
       title: "Name",

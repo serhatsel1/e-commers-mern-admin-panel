@@ -12,8 +12,6 @@ const Blogs = () => {
         </div>
         <ul className="blog-list">
           <BlogItem />
-          <BlogItem />
-          <BlogItem />
         </ul>
       </div>
     </section>

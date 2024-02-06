@@ -49,7 +49,7 @@ const CategoryPage = () => {
       title: "Kategori görseli",
       dataIndex: "img",
       key: "img",
-      render: (imgSrc) => <img width={100} src={imgSrc} alt="avatar" />,
+      render: (imgSrc) => <img width={100} src={imgSrc} alt="loading" />,
     },
     {
       title: "Name",

@@ -5,7 +5,10 @@ const CategoryItem = ({ category }) => {
   return (
     <li className="category-item">
       <a href="#">
-        <img
+        <img style={{
+          width: "155px",
+          height:"155px"
+        }}
           src={category.img}
           alt={category.name.toString()}
           className="category-image"
