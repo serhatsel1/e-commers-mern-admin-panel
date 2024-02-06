@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import "./Categories.css";
 
 import CategoryItem from "./CategoryItem";
-import { message } from "antd";
+import { message, Spin } from "antd";
 
 const Categories = () => {
   const apiUrl = import.meta.env.VITE_API_BASE_URL;
   const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     const fetchCategories = async () => {
       try {
         const response = await fetch(`${apiUrl}/api/categories`);
@@ -21,6 +23,8 @@ const Categories = () => {
         }
       } catch (error) {
         console.log("Veri hatası:", error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchCategories();
@@ -33,11 +37,13 @@ const Categories = () => {
           <h2>All Categories</h2>
           <p>Summer Collection New Morden Design</p>
         </div>
-        <ul className="category-list">
-          {categories?.categories?.map((category) => (
-            <CategoryItem key={category?._id} category={category} />
-          ))}
-        </ul>
+        <Spin size="large" spinning={loading}>
+          <ul className="category-list">
+            {categories?.categories?.map((category) => (
+              <CategoryItem key={category?._id} category={category} />
+            ))}
+          </ul>
+        </Spin>
       </div>
     </section>
   );
