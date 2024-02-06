@@ -64,7 +64,7 @@ const Gallery = ({ productData }) => {
     <div className="product-gallery">
       <div className="single-image-wrapper">
         <img
-          style={{ minHeight: "570px" }}
+          style={{ minHeight: "450px", maxHeight: "600px" }}
           src={activeİmage}
           id="single-image"
           alt="loading"

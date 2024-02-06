@@ -118,7 +118,7 @@ const CartTotals = () => {
         </Spin>
         <br />
         {!user ? (
-          <Link to={`${apiUrl}/auth`}>
+          <Link to={"http://localhost:5173/auth"}>
             <label
               style={{
                 cursor: "pointer",
