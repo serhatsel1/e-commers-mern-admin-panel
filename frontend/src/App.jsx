@@ -38,14 +38,17 @@ function App() {
           <Route index element={<DashboardPage />} />
           <Route path="users" element={<UserPage />} />
           <Route path="categories" element={<CategoryPage />} />
-          <Route path="categories/update/:id" element={<UpdateCategoryPage />} />
+          <Route
+            path="categories/update/:id"
+            element={<UpdateCategoryPage />}
+          />
           <Route path="categories/create" element={<CreateCategoryPage />} />
-          <Route path="products" element={<ProductPage />}/>
+          <Route path="products" element={<ProductPage />} />
           <Route path="products/create" element={<CreateProductPage />} />
-          <Route path="product/update/:id" element={<UpdateProductPage />} />
           <Route path="coupons" element={<CouponPage />} />
           <Route path="coupons/:id" element={<CreateCouponPage />} />
           <Route path="coupon/update/:id" element={<UpdateCouponPage />} />
+          <Route path="product/update/:id" element={<UpdateProductPage />} />
           <Route path="orders" element={<OrderPage />} />
         </Route>
       </Routes>
