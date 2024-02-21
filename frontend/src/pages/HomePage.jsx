@@ -1,5 +1,5 @@
 import Sliders from "../components/Sliders/Sliders";
-import Categories from "../components/categories/categories";
+import Categories from "../components/categories/Categories";
 import Products from "../components/Products/Products";
 import Campaigns from "../components/Campaigns/Campaigns";
 import Blogs from "../components/Blog/Blogs";
